@@ -9,7 +9,7 @@ object (this)
 
   (******
    ****** Your implementation of the point class goes here. Make sure
-   ****** to see point.mli for the signature and documentation of the
+   ****** to see points.mli for the signature and documentation of the
    ****** class.
    ******) 
 

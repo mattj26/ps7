@@ -24,13 +24,13 @@ class mass =
     (* The mass itself *)
     val mass = m
 
-    (*............................................................
+    (*................................................................
       Your part goes here: Provide the implementations of the move and
       restore_pos methods. The move method should differ from the
-      corresponding method for points in that the coordiantes that the
-      mass moves toshould be "clipped" to stay within the frame, as
+      corresponding method for points in that the coordinates that the
+      mass moves to should be "clipped" to stay within the frame, as
       defined by cFRAMESIZE above.
-      ............................................................*)
+      ..............................................................*)
 
     (* Forces on the mass *)
     val frc : point = new point 0. 0.    (* accumulator for forces *)

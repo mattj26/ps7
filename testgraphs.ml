@@ -37,7 +37,6 @@ let graph ({labels; positions; edges} : graph) : unit =
   let edgeobjs = edges |> map (fun (i, j) ->
                                new edge ((nth masses i) :> point)
                                    ~col: cLIGHTGRAY
-                                   ~directed: true
                                    ((nth masses j) :> point)) in
 
   let constraints =

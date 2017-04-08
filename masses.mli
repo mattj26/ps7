@@ -32,7 +32,8 @@ class mass : float -> float -> float -> object
      at it. *)
   method move : point -> unit
 	   
-  (* Restore position of mass to last stored position *)
+  (* Restore position of mass to the single previous stored
+     position. Multiple restores are not supported. *)
   method restore_pos : unit
 							  
   (* Forces on the mass *)

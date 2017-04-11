@@ -5,21 +5,21 @@
  *)
 
 open Points
-       
+
 val cFRAMESIZE : int
 
-(* Class: mass 
+(* Class: mass
      Arguments: initx : float
                 inity : float      initial x and y positions of the mass
-		            m : float          the "physical" mass of the mass for computing 
-		    		                        force effects 
+		            m : float          the "physical" mass of the mass for computing
+		    		                        force effects
 
    A mass is a point that has a mass associated with it and can have
    forces act upon it. *)
-		   
+
 class mass : float -> float -> float -> object
   (* A mass is located at a point *)
-  inherit point 
+  inherit point
 
   (* Masses have distinct integer ids *)
   method get_id : int
@@ -31,11 +31,11 @@ class mass : float -> float -> float -> object
      possible later restoring, clipping to frame boundary while we're
      at it. *)
   method move : point -> unit
-	   
+
   (* Restore position of mass to the single previous stored
      position. Multiple restores are not supported. *)
   method restore_pos : unit
-							  
+
   (* Forces on the mass *)
   (* Sets force on the mass to the vector given by point *)
   method set_force : point -> unit

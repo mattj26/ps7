@@ -187,6 +187,26 @@ class square ?(label : string = "")
               source : point     source point of the edge
               target : point     target point of the edge
  *)
+class edge ?(label : string = "")
+           ?(col : color = black)
+           ?(layer : int = 20)
+           ?(textcol : color = red)
+           ?(width : int = cLINEWIDTH)
+           (source : point)
+           (target : point)
+           =
+object
+  inherit drawable ~label ~layer col
+  method draw : unit =
+    set_color col;
+    set_line_width width;
+    let (x1, y1), (x2, y2) = source#round, target#round in
+    draw_poly_line (Array.of_list [(x1, y1); (x2, y2)]);
+    set_color textcol;
+    draw_text_centered label ((x1 + x2) / 2, (y1 + y2) / 2)
+  end
+
+
 
 
 (* Class zone -- a zone box that surrounds a set of points

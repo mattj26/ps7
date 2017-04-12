@@ -1,6 +1,6 @@
 (*Tests for the point class*)
 open Points;;
-open CS51;;
+open Masses;;
 
 let p1 = new point 1. 4.
 let p2 = new point (-(2.)) 5.
@@ -27,15 +27,15 @@ let test_pos () =
   pp "Test pos passed."
 
 let test_move () =
-  p1#move (new point 2. 1.);
+  p1#move (new point 4. 1.);
   p2#move (new point (nf 3) 0.);
-  ver [p1#x; p1#y; p2#x; p2#y] [3.; 5.; -(5.); 5.];
+  ver [p1#x; p1#y; p2#x; p2#y] [4.; 1.; -(3.); 0.];
   pp "Test move passed"
 
 let test_scale () =
   let pt1 = p1#scale 3. in
   let pt2 = p2#scale 1.5 in
-  ver [pt1#x; pt1#y; pt2#x; pt2#y] [9.; 15.; -7.5; 7.5];
+  ver [pt1#x; pt1#y; pt2#x; pt2#y] [12.; 3.; -4.5; 0.];
   pp "Test scale passed"
 
 let p3 = new point 1. (nf 4)
@@ -47,13 +47,13 @@ let print_point (p : point) : unit =
 let test_plus () =
   let pt1 = p1#plus p3 in
   let pt2 = p2#plus p4 in
-  ver [pt1#x; pt1#y; pt2#x; pt2#y] [4.; 1.; -(6.); 5.];
+  ver [pt1#x; pt1#y; pt2#x; pt2#y] [5.; -(3.); -(4.); 0.];
   pp "Test plus passed."
 
 let test_minus () =
   let pt1 = p1#minus p4 in
   let pt2 = p2#minus p3 in
-  ver [pt1#x; pt1#y; pt2#x; pt2#y] [4.; 5.; -(6.); 9.];
+  ver [pt1#x; pt1#y; pt2#x; pt2#y] [5.; 1.; -(4.); 4.];
   pp "Test minus passed"
 
 let test_norm () =
@@ -63,7 +63,8 @@ let test_norm () =
   print_newline ()
 
 let test_dist () =
-  ver [p1#distance p2] [8.];
+  print_float (p1#distance p2);
+  print_newline ();
   pp "Test distance passed"
 
 let test_unit_vec () =
@@ -71,6 +72,23 @@ let test_unit_vec () =
   print_point p1#unit_vector;
   print_point p2#unit_vector;
   pp "Test unit vector passed"
+
+let m1 = new mass 2. 3. 12.
+let p5 = new point 12. 9.
+
+let test_mass_move () =
+  m1#move p5;
+  ver [m1#x; m1#y] [12.; 9.];
+  pp "Mass move test passed"
+
+let test_restore_pos () =
+  m1#restore_pos;
+  ver [m1#x; m1#y] [2.; 3.];
+  m1#move p1;
+  m1#move p2;
+  m1#restore_pos;
+  ver [m1#x; m1#y] [p1#x; p1#y];
+  pp "Restore pos test passed"
 
 let _ =
   test_x ();
@@ -82,6 +100,8 @@ let _ =
   test_minus ();
   test_norm ();
   test_dist ();
-  test_unit_vec ()
+  test_unit_vec ();
+  test_mass_move ();
+  test_restore_pos ()
 
 

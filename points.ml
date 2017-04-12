@@ -12,7 +12,7 @@ object (this)
   method y = ySave
   method pos = (x0, y0)
   method round = (int_of_float (xSave +. 0.5), int_of_float (ySave +. 0.5))
-  method move (p1 : point) = xSave <- xSave +. p1#x; ySave <- ySave +. p1#y
+  method move (p1 : point) = xSave <- p1#x; ySave <- p1#y
 
   method scale s = new point (xSave *. s) (ySave *. s)
   method plus (p1 : point) = new point (xSave +. p1#x) (ySave +. p1#y)

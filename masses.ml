@@ -5,7 +5,7 @@
  *)
 
 open Points ;;
-     
+
 (* Bound the locations of the masses within a frame of fixed size *)
 let cFRAMESIZE = 500 ;;
 
@@ -16,7 +16,7 @@ class mass =
   object (this)
     (* A mass is located at a point *)
     inherit point initx inity as super
-                  
+
     (* Unique identifier for the mass *)
     val id = currid := !currid + 1; !currid
     method get_id = id
@@ -31,7 +31,14 @@ class mass =
       mass moves to should be "clipped" to stay within the frame, as
       defined by cFRAMESIZE above.
       ..............................................................*)
+    val mutable last_pos = new point initx inity
 
+    method move p =
+      last_pos <- new point super#x super#y;
+      let x1, y1 = min p#x (float_of_int cFRAMESIZE), min p#y (float_of_int cFRAMESIZE) in
+      super#move (new point x1 y1)
+
+    method restore_pos = super#move last_pos
     (* Forces on the mass *)
     val frc : point = new point 0. 0.    (* accumulator for forces *)
     method set_force (p: point) : unit =

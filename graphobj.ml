@@ -219,7 +219,8 @@ object
               ?border : int        amount of whitespace to leave around the
                                    bounding box of the enclosed masses
               ?linewidth : int     linewidth to draw the square (cLINEWIDTH)
-              points : point list  a list of points defining the zone to be enclosed
+              points : point list  a list of points defining the zone to be
+                                    enclosed
  *)
 class zone ?(col : color = cLIGHTGRAY)
            ?(label : string = "")

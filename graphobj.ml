@@ -144,13 +144,14 @@ class circle ?(label : string = "")
 
     method draw =
       let x, y = anchor#round in
+      let x0, y0 = (x - width /2 - linewidth / 2), (y - height/2 - linewidth / 2) in
       set_line_width linewidth;
       set_color background;
-      fill_rect x y width height;
+      fill_rect x0 y0 width height;
       set_color col;
-      draw_rect x y width height;
+      draw_rect x0 y0 width height;
       set_color textcol;
-      draw_text_centered label (x + linewidth / 2 + width / 2, y + height / 2)
+      draw_text_centered label (x, y)
   end
 
 

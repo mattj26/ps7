@@ -46,7 +46,7 @@ let graph ({labels; positions; edges} : graph) : unit =
                                   if i = j then
                                     (* pull all nodes toward center *)
                                     [((new positionspring
-                                                       ~stiffness: (CS51.const 0.001)
+                                                       ~stiffness: (CS51.const 0.008)
                                                        mi centerpoint) :> control)]
                                   else if mem (i, j) edges then
                                     (* connected nodes should be close *)
@@ -81,7 +81,7 @@ let trellis2 () =
                         (90, 45); (100, 110); (110, 170) ];
           edges = [ (0, 1); (1, 2); (2, 5); (5, 4); (4, 3);
                     (3, 0); (1, 4); (1, 5); (1, 3) ] } ;;
-  
+
 
 let planar () =
   graph { labels = List.map string_of_int (CS51.range 0 5);
@@ -95,7 +95,7 @@ let t2 () =
   graph { labels = List.map string_of_int (CS51.range 0 5);
           positions = [ (50, 50); (50, 75); (145, 80);
                         (90, 72); (120, 45); (70, 50) ];
-          edges = [ (0, 3); (0, 5);  (1, 3); (1, 5); 
+          edges = [ (0, 3); (0, 5);  (1, 3); (1, 5);
                     (2, 3); (2, 5); (4, 3); (4, 5) ] } ;;
 
 (* Alonzo Church's PhD advisee genealogy *)
@@ -123,4 +123,4 @@ let genealogy () =
 
 
 (* We test one of them out *)
-let _ = genealogy () ;;
+let _ = radial () ;;

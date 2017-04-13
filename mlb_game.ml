@@ -1,6 +1,9 @@
 (* This is code to generate a force-directed graph which displays
     the starting lineups for the Major League Baseball game on
-    4/12/17 between the Mets and the Phillies. *)
+    4/12/17 between the Mets and the Phillies.
+
+    I changed how some of the constraints are applied so I copied in the
+    code from testgraphs and made some modifications *)
 
 open List ;;
 
@@ -29,7 +32,7 @@ let graph ({labels; positions; edges} : graph) : unit =
                               new square ~label: (nth labels i)
                                   ~col: cGRAY
                                   ~textcol: cBLACK
-                                  (m :> point) 20) in
+                                  (m :> point) 15) in
 
   let edgeobjs = edges |> map (fun (i, j) ->
                                new edge ((nth masses i) :> point)

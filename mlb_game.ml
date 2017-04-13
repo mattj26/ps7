@@ -1,3 +1,7 @@
+(* This is code to generate a force-directed graph which displays
+    the starting lineups for the Major League Baseball game on
+    4/12/17 between the Mets and the Phillies. *)
+
 open List ;;
 
 open Points ;;
@@ -79,7 +83,7 @@ let mets_phils () =
                     "Bruce"; "Walker"; "Duda"; "Reyes"; "d'Arnaud"; "Wheeler";
                     "Hernandez"; "Kendrick"; "Herrera"; "Franco"; "Saunders";
                     "Joseph"; "Rupp"; "Galvis"; "Velasquez"];
-          positions = team_starts @ (circ_points 9 100. 100. 5.) @ (circ_points 9 10. 10. 5.);
+          positions = team_starts @ (circ_points 9 100. 100. 4.) @ (circ_points 9 10. 10. 6.);
 
           edges = [(0,2); (0,3); (0,4); (0,5); (0,6); (0,7); (0,8); (0,9); (0,10);
                     (1, 11); (1, 12); (1, 13); (1, 14); (1, 15); (1, 16);
@@ -87,7 +91,6 @@ let mets_phils () =
 }
 
 let _ =
-  print_list (circ_points 9 3. 3. 12.);
   mets_phils ();;
 
 

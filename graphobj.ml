@@ -39,7 +39,8 @@ let draw_text_centered (s : string) (x, y : int * int) =
 let draw_triangle (pt : point) (dir : point) (scale : float) : unit =
   let ortho = let x, y = dir#pos in new point y (-.x) in
   let left = (pt#minus (dir#scale scale))#plus (ortho#scale (scale /. 2.0)) in
-  let right = (pt#minus (dir#scale scale))#plus (ortho#scale (-. scale /. 2.0)) in
+  let right = (pt#minus (dir#scale scale))#plus (ortho#scale (-. scale /. 2.0))
+  in
   fill_poly [| pt#round; left#round; right#round |] ;;
 
 (* Minimum and maximum elements in a list *)
@@ -144,7 +145,8 @@ class circle ?(label : string = "")
 
     method draw =
       let x, y = anchor#round in
-      let x0, y0 = (x - width /2 - linewidth / 2), (y - height/2 - linewidth / 2) in
+      let x0, y0 = (x - width /2 - linewidth / 2),
+        (y - height/2 - linewidth / 2) in
       set_line_width linewidth;
       set_color background;
       fill_rect x0 y0 width height;

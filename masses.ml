@@ -35,7 +35,8 @@ class mass =
 
     method move p =
       last_pos <- new point super#x super#y;
-      let x1, y1 = min p#x (float_of_int cFRAMESIZE), min p#y (float_of_int cFRAMESIZE) in
+      let x1, y1 = min p#x (float_of_int cFRAMESIZE),
+        min p#y (float_of_int cFRAMESIZE) in
       super#move (new point x1 y1)
 
     method restore_pos = super#move last_pos

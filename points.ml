@@ -17,7 +17,8 @@ object (this)
   method scale s = new point (xSave *. s) (ySave *. s)
   method plus (p1 : point) = new point (xSave +. p1#x) (ySave +. p1#y)
   method minus (p1 : point) = new point (xSave -. p1#x) (ySave -. p1#y)
-  method private vec_dif (p2 : point) = (xSave -. p2#x) ** 2. +. (ySave -. p2#y) ** 2.
+  method private vec_dif (p2 : point) =
+    (xSave -. p2#x) ** 2. +. (ySave -. p2#y) ** 2.
   method norm = sqrt (this#vec_dif (new point 0. 0.))
   method distance p1 = sqrt(this#vec_dif p1)
   method unit_vector = this#scale (1. /. this#norm)

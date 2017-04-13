@@ -36,10 +36,10 @@ let graph ({labels; positions; edges} : graph) : unit =
     let centerpoint = new point (float_of_int cFRAMESIZE/.2.) (float_of_int cFRAMESIZE/.2.) in
     flatten (flatten (mapi (fun i mi ->
                             mapi (fun j mj ->
-                                  if i = j then
+                                  if i = j && (i = 0 || i = 1) then
                                     (* pull all nodes toward center *)
                                     [((new positionspring
-                                                       ~stiffness: (CS51.const 0.008)
+                                                       ~stiffness: (CS51.const 0.7)
                                                        mi centerpoint) :> control)]
                                   else if mem (i, j) edges then
                                     (* connected nodes should be close *)
@@ -48,7 +48,7 @@ let graph ({labels; positions; edges} : graph) : unit =
                                            mi mj) :> control)]
                                   else if i < j then
                                     (* nodes shouldn't overlap *)
-                                    [((new logisticrepel ~rest: 100.
+                                    [((new logisticrepel ~rest: 200.
                                            ~stiffness: (CS51.const 1.0)
                                            ~steepness: 0.5
                                            mi mj) :> control)]
@@ -58,21 +58,37 @@ let graph ({labels; positions; edges} : graph) : unit =
   in
   x11_solve masses (constraints :> control list) (scene @ edgeobjs) ;;
 
+let pi = 4.0 *. atan 1.0;;
+
+let make_float_list min max =
+  List.map (fun x -> float_of_int x) (CS51.range min max)
+
+let circ_points num x0 y0 r =
+  let nums = make_float_list 0 (num - 1) in
+  let angle = 2. *. pi /. float_of_int num in
+  List.map (fun n -> (int_of_float(x0 +. r *. cos (n *. angle)),
+    int_of_float (y0 +. r *. sin (n *. angle)))) nums
+
+let print_list lst =
+  List.iter (fun (x, y) -> Printf.printf "(%i, %i)\n" x y) lst
+
+let team_starts = [(10,10); (1,1)]
+
 let mets_phils () =
   graph { labels = ["Mets"; "Phillies"; "Conforto"; "Cabrera"; "Cespedes";
                     "Bruce"; "Walker"; "Duda"; "Reyes"; "d'Arnaud"; "Wheeler";
                     "Hernandez"; "Kendrick"; "Herrera"; "Franco"; "Saunders";
                     "Joseph"; "Rupp"; "Galvis"; "Velasquez"];
-          positions = [(3,3); (2,2); (51,51); (51,50); (51, 49); (51,48);
-                      (51,47); (51,46); (51,45); (51,44); (51,43); (10, 9);
-                      (10, 8); (10, 7); (10, 6); (10, 5); (10, 4); (10, 3);
-                      (10, 2); (10, 1)];
+          positions = team_starts @ (circ_points 9 100. 100. 5.) @ (circ_points 9 10. 10. 5.);
+
           edges = [(0,2); (0,3); (0,4); (0,5); (0,6); (0,7); (0,8); (0,9); (0,10);
                     (1, 11); (1, 12); (1, 13); (1, 14); (1, 15); (1, 16);
                     (1, 17); (1, 18); (1, 19)]
 }
 
-let _ = mets_phils ();;
+let _ =
+  print_list (circ_points 9 3. 3. 12.);
+  mets_phils ();;
 
 
 
